@@ -1,0 +1,12 @@
+---
+# Configure VM for use
+
+- name: update package lists
+  apt: update_cache=yes
+
+- include: ssh-config.yml
+
+- include: controller-user.yml
+  when: core_controller_user_enabled == true
+- include: app-user.yml
+  when: core_app_user_enabled == true

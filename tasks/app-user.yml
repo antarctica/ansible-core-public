@@ -1,0 +1,17 @@
+---
+# Create an application user and grant access to authorised users
+
+- name: create app user
+  user: name="{{ core_app_user_username }}" shell=/bin/bash state=present comment="Application"
+
+- name: add public keys for app user
+  authorized_key: user="{{ core_app_user_username }}" key="{{ lookup('file',item) }}"
+  with_fileglob:
+  - "{{ core_app_user_authorized_keys_directory }}/*"
+
+- name: create empty bash_aliases file for app user
+  file: path=/home/"{{ core_app_user_username }}"/.bash_aliases group="{{ core_app_user_username }}" owner="{{ core_app_user_username }}" state=touch
+  when: core_app_user_create_bash_aliases == true
+
+- name: set ownership of random file for app user
+  file: path=/home/"{{ core_app_user_username }}"/.rnd group="{{ core_app_user_username }}" owner="{{ core_app_user_username }}" state=touch

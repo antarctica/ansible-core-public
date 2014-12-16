@@ -1,0 +1,9 @@
+---
+# Configure controller user
+
+- name: create empty bash_aliases file for controller user
+  file: path=/home/"{{ core_controller_user_username }}"/.bash_aliases group="{{ core_controller_user_username }}" owner="{{ core_controller_user_username }}" state=touch
+  when: core_controller_user_create_bash_aliases == true
+
+- name: set ownership of random file for controller user
+  file: path=/home/"{{ core_controller_user_username }}"/.rnd group="{{ core_controller_user_username }}" owner="{{ core_controller_user_username }}" state=touch

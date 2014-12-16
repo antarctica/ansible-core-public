@@ -1,0 +1,14 @@
+---
+# Default variables - inventory or playbook overrides will be respected
+
+core_controller_user_username: controller
+core_controller_user_enabled: true
+core_controller_user_create_bash_aliases: true
+
+core_app_user_username: app
+core_app_user_enabled: true
+core_app_user_create_bash_aliases: true
+
+core_app_user_authorized_keys_directory: ../../../public_keys
+
+core_ssh_known_hosts: []

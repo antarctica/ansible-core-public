@@ -1,0 +1,18 @@
+---
+galaxy_info:
+  description: Performs standard configuration of a node
+  author: British Antarctic Survey - Web and Applications Team
+  company: British Antarctic Survey
+  license: MIT
+  min_ansible_version: 1.6
+  platforms:
+  - name: Ubuntu
+      - trusty
+  categories:
+  - packaging
+  - system
+
+armadillo_info:
+  name: Core
+  version: 0.5.1
+  source: git@stash.ceh.ac.uk:7999/barc/core.git
