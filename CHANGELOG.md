@@ -1,5 +1,9 @@
 # Core Public (`core-public`) - Changelog
 
+## 0.5.2 - December 2014
+
+* Adding compatibility with Ansible Galaxy
+
 ## 0.5.1 - December 2014
 
 * Preparing for public release
