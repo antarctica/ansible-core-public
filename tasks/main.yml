@@ -4,6 +4,8 @@
 - name: update package lists
   apt: update_cache=yes
 
+- include: sudo-config.yml
+
 - include: ssh-config.yml
 
 - include: controller-user.yml
