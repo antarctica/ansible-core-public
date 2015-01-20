@@ -1,5 +1,9 @@
 # Core Public (`core-public`) - Changelog
 
+## 0.6.0 - January 2015
+
+* Fixing agent forwarding when used with root sudo sessions
+
 ## 0.5.2 - December 2014
 
 * Adding compatibility with Ansible Galaxy
