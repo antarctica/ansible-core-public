@@ -8,6 +8,9 @@
 
 - include: ssh-config.yml
 
+- include: swap-file.yml
+  when: core_swap_file_enabled == true
+
 - include: controller-user.yml
   when: core_controller_user_enabled == true
 - include: app-user.yml
