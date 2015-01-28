@@ -11,6 +11,7 @@ Performs standard configuration of a node
 * Configures SSH to pre-trust some hosts by adding their host keys to `ssh_known_hosts`, this is controlled by `core_ssh_known_hosts`.
 * Optionally, creates a new OS user, 'app' for performing day to tasks and can be safely used by 'applications' such as a web server. Designed for use from the terminal and when using automated tools (such as ansible). The `authorized_keys` file for the user is set to contain any file in the `core_app_user_authorized_keys_directory` directory.
 * Optionally creates an empty 'bash_aliases' file for the 'controller', and if enabled, the 'app' user accounts - this is performed by default.
+* Optionally creates a swap file of a specific size if needed.
 
 ## Availability
 
@@ -63,6 +64,17 @@ Note: Internal users should use the `core` role rather than this one.
         * copy the lines of `~/.ssh/known_hosts` to this file (i.e. line1 = first line, there should only be two lines)
         * add a suitable comment (host, date added to this file)
     * Default: [Array]  (empty)
+* `core_swap_file_enabled`
+    * Whether or not to create a swap file
+    * Default: false
+* `core_swap_file_size`
+    * Size of the swap file in MB
+    * This variable **must** be an integer value without a size prefix (i.e. "1204" not "1204MB")
+    * Default: "1024"
+* `core_swap_file_path`
+    * Location to store the swap file
+    * This variable **must** be a valid file location (i.e. that is writable) and is recommended not to be changed.
+    * Default: "/var/swap.1"
 
 ## Contributing
 

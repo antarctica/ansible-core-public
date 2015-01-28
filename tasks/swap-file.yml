@@ -1,0 +1,14 @@
+---
+# Configure swap file
+
+- name: create storage container to use as swap file
+  raw: "/bin/dd if=/dev/zero of={{ core_swap_file_path }} bs=1M count={{ core_swap_file_size }}"
+
+- name: set permissions on storage container
+  file: path="{{ core_swap_file_path }}" owner=root group=root mode=0600
+
+- name: enable container to be used for swap
+  raw: "/sbin/mkswap {{ core_swap_file_path }}"
+
+- name: enable swap file
+  raw: "/sbin/swapon {{ core_swap_file_path }}"
