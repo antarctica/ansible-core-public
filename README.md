@@ -63,6 +63,17 @@ Note: Internal users should use the `core` role rather than this one.
         * copy the lines of `~/.ssh/known_hosts` to this file (i.e. line1 = first line, there should only be two lines)
         * add a suitable comment (host, date added to this file)
     * Default: [Array]  (empty)
+* `core_swap_file_enabled`
+    * Whether or not to create a swap file
+    * Default: false
+* `core_swap_file_size`
+    * Size of the swap file in MB
+    * This variable **must** be an integer value without a size prefix (i.e. "1204" not "1204MB")
+    * Default: "1024"
+* `core_swap_file_path`
+    * Location to store the swap file
+    * This variable **must** be a valid file location (i.e. that is writable) and is recommended not to be changed.
+    * Default: "/var/swap.1"
 
 ## Contributing
 
