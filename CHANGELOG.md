@@ -1,5 +1,9 @@
 # Core Public (`core-public`) - Changelog
 
+## 0.7.0 - January 2015
+
+* Adding swap file support
+
 ## 0.6.0 - January 2015
 
 * Fixing agent forwarding when used with root sudo sessions

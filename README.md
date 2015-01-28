@@ -11,6 +11,7 @@ Performs standard configuration of a node
 * Configures SSH to pre-trust some hosts by adding their host keys to `ssh_known_hosts`, this is controlled by `core_ssh_known_hosts`.
 * Optionally, creates a new OS user, 'app' for performing day to tasks and can be safely used by 'applications' such as a web server. Designed for use from the terminal and when using automated tools (such as ansible). The `authorized_keys` file for the user is set to contain any file in the `core_app_user_authorized_keys_directory` directory.
 * Optionally creates an empty 'bash_aliases' file for the 'controller', and if enabled, the 'app' user accounts - this is performed by default.
+* Optionally creates a swap file of a specific size if needed.
 
 ## Availability
 
