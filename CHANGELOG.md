@@ -1,5 +1,13 @@
 # Core Public (`core-public`) - Changelog
 
+## 0.7.2 - January 2015
+
+* Fixing handling of a pre-existing swap file
+
+## 0.7.1 - January 2015
+
+* Dummy entry to keep versioning between core and core-public roles the same
+
 ## 0.7.0 - January 2015
 
 * Adding swap file support
