@@ -12,6 +12,7 @@ Performs standard configuration of a node
 * Optionally, creates a new OS user, 'app' for performing day to tasks and can be safely used by 'applications' such as a web server. Designed for use from the terminal and when using automated tools (such as ansible). The `authorized_keys` file for the user is set to contain any file in the `core_app_user_authorized_keys_directory` directory.
 * Optionally creates an empty 'bash_aliases' file for the 'controller', and if enabled, the 'app' user accounts - this is performed by default.
 * Optionally creates a swap file of a specific size if needed.
+* Optionally copies and secures access to an SSL private key if needed.
 
 ## Availability
 
@@ -75,6 +76,25 @@ Note: Internal users should use the `core` role rather than this one.
     * Location to store the swap file
     * This variable **must** be a valid file location (i.e. that is writable) and is recommended not to be changed.
     * Default: "/var/swap.1"
+* `core_ssl_private_key_enabled`
+    * If "true" a SSL private key will be copied from a source to a destination with root only permissions applied
+    * Default: "false"
+* `core_ssl_private_key_source_path`
+    * Path on the ansible host to the directory holding the SSL private key
+    * This variable can be an absolute or relative path but **MUST NOT** contain a trailing slash
+    * Default: "../../../certificates/domain"
+* `core_ssl_private_key_source_file`
+    * The file name and extension of the SSL private key within the directory specified by `core_ssl_private_key_source_path`
+    * By convention this file **SHOULD** use a `.key` extension
+    * Default: "certificate.key"
+* `core_ssl_private_key_destination_path`
+    * Path on the machine where the SSL private key will be stored
+    * By default this variable uses the Debian convention for SSL private keys and so this variable **SHOULD NOT** be changed.
+    * Default: "/etc/ssl/private"
+* `core_ssl_private_key_destination_file`
+    * The file name and extension the SSL private key will be stored in within the directory specified by `core_ssl_private_key_destination_path`
+    * By convention this file **SHOULD** use a `.key` extension
+    * Default: "certificate.key"
 
 ## Contributing
 
@@ -98,4 +118,4 @@ Issues, bugs, improvements, questions, suggestions and other tasks related to th
 
 ## License
 
-Copyright 2014 NERC BAS. Licensed under the MIT license, see `LICENSE` for details.
+Copyright 2015 NERC BAS. Licensed under the MIT license, see `LICENSE` for details.

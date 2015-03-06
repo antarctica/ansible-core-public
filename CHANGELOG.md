@@ -1,5 +1,9 @@
 # Core Public (`core-public`) - Changelog
 
+## 0.8.0 - March 2015
+
+* Adding SSL private key copy support
+
 ## 0.7.2 - January 2015
 
 * Fixing handling of a pre-existing swap file
