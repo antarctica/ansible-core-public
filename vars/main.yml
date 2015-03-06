@@ -1,0 +1,8 @@
+---
+# These variables override role defaults but can be overriden by playbooks
+
+apache_default_var_www_ssl_key_path: "{{ core_ssl_private_key_destination_path }}"
+apache_default_var_www_ssl_key_file: "{{ core_ssl_private_key_destination_file }}"
+
+nginx_default_var_www_ssl_key_path: "{{ core_ssl_private_key_destination_path }}"
+nginx_default_var_www_ssl_key_file: "{{ core_ssl_private_key_destination_file }}"
