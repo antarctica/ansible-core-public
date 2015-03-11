@@ -1,5 +1,9 @@
 # Core Public (`core-public`) - Changelog
 
+## 0.9.0 - March 2015
+
+* Adding Hostname support via ANXS dependency
+
 ## 0.8.0 - March 2015
 
 * Adding SSL private key copy support

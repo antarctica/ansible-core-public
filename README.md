@@ -6,6 +6,7 @@ Performs standard configuration of a node
 
 ## Overview
 
+* Sets system hostname and FQDN via `ANXS.hostname` role
 * Updates package lists (`apt-get update`)
 * Configures sudo to support agent forwarding when in a sudo session (this applies when sudoing to root only).
 * Configures SSH to pre-trust some hosts by adding their host keys to `ssh_known_hosts`, this is controlled by `core_ssh_known_hosts`.
@@ -23,6 +24,10 @@ Note: Internal users should use the `core` role rather than this one.
 ## Usage
 
 ### Requirements
+
+#### Ansible Galaxy
+
+* [ANXS.hostname](https://galaxy.ansible.com/list#/roles/528)
 
 #### Other requirements
 

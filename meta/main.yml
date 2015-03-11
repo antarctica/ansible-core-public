@@ -14,7 +14,10 @@ galaxy_info:
 
 armadillo_info:
   name: Core Public
-  version: 0.8.0
+  version: 0.9.0
   source: git@stash.ceh.ac.uk:7999/barc/core-public.git
+  dependencies:
+  - ANXS.hostname#v1.0.4
 
-dependencies: []
+dependencies:
+  - ANXS.hostname
