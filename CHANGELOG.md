@@ -1,4 +1,5 @@
 # Core Public (`core-public`) - Changelog
+
 ## 0.9.1 - March 2015
 
 * Fixing tasks to prevent unnecessary change reporting
