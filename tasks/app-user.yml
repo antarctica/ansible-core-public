@@ -9,9 +9,19 @@
   with_fileglob:
   - "{{ core_app_user_authorized_keys_directory }}/*"
 
-- name: create empty bash_aliases file for app user
-  file: path=/home/"{{ core_app_user_username }}"/.bash_aliases group="{{ core_app_user_username }}" owner="{{ core_app_user_username }}" state=touch
+- name: determine if bash_aliases file exists for app user
+  stat: path="/home/{{ core_app_user_username }}/.bash_aliases"
+  register: core_fact_app_user_bash_aliases_exist
   when: core_app_user_create_bash_aliases == true
 
-- name: set ownership of random file for app user
-  file: path=/home/"{{ core_app_user_username }}"/.rnd group="{{ core_app_user_username }}" owner="{{ core_app_user_username }}" state=touch
+- name: ensure bash_aliases file exists for app user
+  file: path="/home/{{ core_app_user_username }}/.bash_aliases" group="{{ core_app_user_username }}" owner="{{ core_app_user_username }}" state=touch
+  when: core_app_user_create_bash_aliases == true and core_fact_app_user_bash_aliases_exist.stat.exists == false
+
+- name: determine if rnd file exists for app user
+  stat: path="/home/{{ core_app_user_username }}/.rnd"
+  register: core_fact_app_user_rnd_exist
+
+- name: ensure rnd file exists for app user
+  file: path="/home/{{ core_app_user_username }}/.rnd" group="{{ core_app_user_username }}" owner="{{ core_app_user_username }}" state=touch
+  when: core_fact_app_user_rnd_exist.stat.exists == false

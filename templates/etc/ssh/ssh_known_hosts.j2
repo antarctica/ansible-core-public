@@ -1,6 +1,0 @@
-# {{ ansible_managed }}
-
-{% for host in core_ssh_known_hosts %}
-# {{ host.comment }}
-{{ host.line }}
-{% endfor %}

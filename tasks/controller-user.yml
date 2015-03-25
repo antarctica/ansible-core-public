@@ -1,9 +1,19 @@
 ---
 # Configure controller user
 
-- name: create empty bash_aliases file for controller user
-  file: path=/home/"{{ core_controller_user_username }}"/.bash_aliases group="{{ core_controller_user_username }}" owner="{{ core_controller_user_username }}" state=touch
+- name: determine if bash_aliases file exists for controller user
+  stat: path="/home/{{ core_controller_user_username }}/.bash_aliases"
+  register: core_fact_controller_user_bash_aliases_exist
   when: core_controller_user_create_bash_aliases == true
 
-- name: set ownership of random file for controller user
-  file: path=/home/"{{ core_controller_user_username }}"/.rnd group="{{ core_controller_user_username }}" owner="{{ core_controller_user_username }}" state=touch
+- name: ensure bash_aliases file exists for controller user
+  file: path="/home/{{ core_controller_user_username }}/.bash_aliases" group="{{ core_controller_user_username }}" owner="{{ core_controller_user_username }}" state=touch
+  when: core_controller_user_create_bash_aliases == true and core_fact_controller_user_bash_aliases_exist.stat.exists == false
+
+- name: determine if rnd file exists for controller user
+  stat: path="/home/{{ core_controller_user_username }}/.rnd"
+  register: core_fact_controller_user_rnd_exist
+
+- name: ensure rnd file exists for controller user
+  file: path="/home/{{ core_controller_user_username }}/.rnd" group="{{ core_controller_user_username }}" owner="{{ core_controller_user_username }}" state=touch
+  when: core_fact_controller_user_rnd_exist.stat.exists == false

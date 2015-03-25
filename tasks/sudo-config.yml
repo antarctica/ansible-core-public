@@ -1,5 +1,5 @@
 ---
 # Configure Sudo
 
-- name: preserve agent forwarding in sudo
-  template: src=etc/sudoers.j2 dest=/etc/sudoers validate='visudo -cf %s'
+- name: preserve agent forwarding when using sudo
+  lineinfile: dest=/etc/sudoers line="Defaults        env_keep+=SSH_AUTH_SOCK" insertafter="Defaults        env_reset" state=present

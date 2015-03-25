@@ -1,7 +1,6 @@
 ---
 # Configure SSH
 
-- name: add ssh known_hosts file
-  file: path=/etc/ssh/ssh_known_hosts state=touch
-- name: add hosts to ssh known_hosts
-  template: src=etc/ssh/ssh_known_hosts.j2 dest=/etc/ssh/ssh_known_hosts owner=root group=root mode=644
+- name: add known hosts to SSH known hosts file
+  lineinfile: dest=/etc/ssh/ssh_known_hosts line="{{ item.line }}" insertafter=EOF state=present create=yes
+  with_items: core_ssh_known_hosts
