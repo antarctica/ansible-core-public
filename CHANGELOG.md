@@ -61,7 +61,7 @@
 
 ## 0.3.1 - September 2014
 
-* fixing .rnd file suppport as files do not exist initially
+* fixing .rnd file support as files do not exist initially
 
 ## 0.3.0 - September 2014
 
