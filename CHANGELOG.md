@@ -1,4 +1,7 @@
 # Core Public (`core-public`) - Changelog
+## 0.9.1 - March 2015
+
+* Fixing tasks to prevent unnecessary change reporting
 
 ## 0.9.0 - March 2015
 
@@ -58,7 +61,7 @@
 
 ## 0.3.1 - September 2014
 
-* fixing .rnd file suppport as files do not exist initially
+* fixing .rnd file support as files do not exist initially
 
 ## 0.3.0 - September 2014
 
