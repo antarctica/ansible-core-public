@@ -2,4 +2,4 @@
 # Configure Sudo
 
 - name: preserve agent forwarding when using sudo
-  lineinfile: dest=/etc/sudoers line="Defaults        env_keep+=SSH_AUTH_SOCK" insertafter="Defaults        env_reset" state=present
+  llineinfile: dest=/etc/sudoers line="Defaults        env_keep+=SSH_AUTH_SOCK" insertafter="EOF" state=present
