@@ -1,4 +1,9 @@
 # Core Public (`core-public`) - Changelog
+
+## 0.9.2 - April 2015
+
+* Fixing support for agent forwarding in sudoers file
+
 ## 0.9.1 - March 2015
 
 * Fixing tasks to prevent unnecessary change reporting
