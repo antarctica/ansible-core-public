@@ -1,5 +1,9 @@
 # Core Public (`core-public`) - Changelog
 
+## 0.9.4 - April 2015
+
+* Fixing typo in task action
+
 ## 0.9.3 - April 2015
 
 * Fixing incorrect validation of SSH config file
