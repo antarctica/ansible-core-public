@@ -1,5 +1,10 @@
 # Core Public (`core-public`) - Changelog
 
+## 1.0.0 - May 2015
+
+* Removes support for modifying the sudoers file, ensure you are using a compatible bootstrap role and base system
+* Adding controller user to adm group for viewing logs without sudo
+
 ## 0.9.4 - April 2015
 
 * Fixing typo in task action

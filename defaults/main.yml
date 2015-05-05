@@ -4,6 +4,7 @@
 core_controller_user_username: controller
 core_controller_user_enabled: true
 core_controller_user_create_bash_aliases: true
+core_controller_user_add_to_adm_group: true
 
 core_app_user_username: app
 core_app_user_enabled: true

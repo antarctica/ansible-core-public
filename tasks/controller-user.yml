@@ -1,6 +1,10 @@
 ---
 # Configure controller user
 
+- name: ensure controller user is a member of the adm group
+  user: name="{{ core_controller_user_username }}" groups="adm" append="yes"
+  when: core_controller_user_add_to_adm_group == true
+
 - name: determine if bash_aliases file exists for controller user
   stat: path="/home/{{ core_controller_user_username }}/.bash_aliases"
   register: core_fact_controller_user_bash_aliases_exist
