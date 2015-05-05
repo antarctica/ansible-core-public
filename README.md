@@ -6,11 +6,12 @@ Performs standard configuration of a node
 
 ## Overview
 
-* Sets system hostname and FQDN via `ANXS.hostname` role
-* Updates package lists (`apt-get update`)
-* Configures sudo to support agent forwarding when in a sudo session (this applies when sudoing to root only).
+* Sets system hostname and FQDN via `ANXS.hostname` role.
+* Updates package lists (`apt-get update`).
 * Configures SSH to pre-trust some hosts by adding their host keys to `ssh_known_hosts`, this is controlled by `core_ssh_known_hosts`.
-* Optionally, creates a new OS user, 'app' for performing day to tasks and can be safely used by 'applications' such as a web server. Designed for use from the terminal and when using automated tools (such as ansible). The `authorized_keys` file for the user is set to contain any file in the `core_app_user_authorized_keys_directory` directory.
+* Optionally adds a 'controller' user to the "adm" group to allow log files to be read without requiring sudo - this is performed by default and assumes a user named 'controller' exists.
+* Unless disabled, creates a new OS user, 'app' for performing non-privileged actions (such as creating directories within an uploads directory) and can be safely used by applications such as a web server.
+* If enabled, the `authorized_keys` file for the app user is set to contain any file in the `core_app_user_authorized_keys_directory` directory.
 * Optionally creates an empty 'bash_aliases' file for the 'controller', and if enabled, the 'app' user accounts - this is performed by default.
 * Optionally creates a swap file of a specific size if needed.
 * Optionally copies and secures access to an SSL private key if needed.
@@ -31,38 +32,55 @@ Note: Internal users should use the `core` role rather than this one.
 
 #### Other requirements
 
+* As of version **2.0.0** any OS this role is applied to **MUST** ensure passwordless sudo is enabled for the "sudo" group and SSH Agent Forwarding is preserved when using sudo.
+    * If using an of the following combinations of roles and OS images ensure you are using version **2.0.0** or higher, which implement these requirements:
+        * `bootstrap-vagrant` bootstrapping role with the [antarctica/trusty](https://atlas.hashicorp.com/antarctica/boxes/trusty) base box
+        * `bootstrap-esxi` bootstrapping role with the Ubuntu Trusty OVA as a template [1]
+        * `bootstrap-digitalocean` bootstrapping role with the relevant DigitalOcean snapshot as a template [2]
 * Public keys which should be added to the `authorized_keys` file of the app user, each key should be a separate file. Keys should be contained in  `core_app_user_authorized_keys_directory`.
+
+[1] See the [BAS Packer Templates](https://stash.ceh.ac.uk/projects/BASPACK/repos/packer-templates) for more information.
+
+[2] See the `bootstrap-digitalocean` role for more information on which snapshot to use.
 
 #### Variables
 
 * `core_controller_user_username`
 	* The username of the controller user, used for management tasks, if enabled
-	* This variable **must** be a valid unix username
+	* This variable **MUST** represent a valid UNIX user.
 	* Default: "controller"
 * `core_controller_user_enabled`
-	* If "true" a user for management tasks, termed a controller user, will be configured.
-	* Default: true
+	* If "true" a user for management tasks, termed a controller user, will be configured
+    * This is a binary variable and **MUST** be set to either "true" or "false" (without quotes).
+	* Default: "true"
 * `core_controller_user_create_bash_aliases`
     * If "true" an empty "bash_aliases" file will be created for the controller user.
     * Bash is configured to load this file automatically if it exists.
-    * Default: true
+    * This is a binary variable and **MUST** be set to either "true" or "false" (without quotes).
+    * Default: "true"
+* `core_controller_user_add_to_adm_group`
+    * If "true" the user presented by the `` variable will be added to the "adm" group, which allows access to log files
+    * This is a binary variable and **MUST** be set to either "true" or "false" (without quotes).
+    * Default: "true"
 * `core_app_user_username`
 	* The username of the app user, used for day to day tasks, if enabled
-	* This variable **must** be a valid unix username
+	* This variable **MUST** be a valid unix username
 	* Default: "app"
 * `core_app_user_enabled`
-	* If "true" a user for day to day tasks, termed an app user, will be created.
-	* Default: true
+	* If "true" a user for day to day tasks, termed an app user, will be created
+    * This is a binary variable and **MUST** be set to either "true" or "false" (without quotes).
+	* Default: "true"
 * `core_app_user_authorized_keys_directory`
-	* Path relative to where this role is installed to the directory that contains files for the `authorized_keys` file of the app user.
-	* This variable **must** point to a directory, it **must not** include a trailing `/`.
+    * The path, relative to where this role is installed, to the directory that contains the public key files to be added to the app user's `authorized_keys` file.
+	* This variable **MUST** point to a directory, it **MUST NOT** include a trailing `/`.
 	* Default: "../../../public_keys"
 * `core_app_user_create_bash_aliases`
-    * If "true" an empty "bash_aliases" file will be created for the app user.
+    * If "true" an empty "bash_aliases" file will be created for the app user
     * Bash is configured to load this file automatically if it exists.
+    * This is a binary variable and **MUST** be set to either "true" or "false" (without quotes).
     * Default: true
 * `core_ssh_known_hosts`
-	* An array of trusted SSH host keys to be added to `ssh_known_hosts`.
+	* An array of trusted SSH host keys to be added to the OS `ssh_known_hosts` file.
 	* This is a workaround for ssh-keyscan not working correctly.
     * To add to this list:
         * start with a clean `~/.ssh/known_hosts` file
@@ -72,32 +90,36 @@ Note: Internal users should use the `core` role rather than this one.
     * Default: [Array]  (empty)
 * `core_swap_file_enabled`
     * Whether or not to create a swap file
-    * Default: false
+    * This is a binary variable and **MUST** be set to either "true" or "false" (without quotes).
+    * Default: "false"
 * `core_swap_file_size`
-    * Size of the swap file in MB
-    * This variable **must** be an integer value without a size prefix (i.e. "1204" not "1204MB")
+    * If enabled, the size of the swap file in MB
+    * This variable **MUST** be an integer value and **MUST NOT** include a size prefix (i.e. "1204" not "1204MB")
     * Default: "1024"
 * `core_swap_file_path`
-    * Location to store the swap file
-    * This variable **must** be a valid file location (i.e. that is writable) and is recommended not to be changed.
+    * If enabled, the location to store the swap file
+    * This variable **MUST** be a valid, writeable, path, you **SHOULD NOT** change the default value.
     * Default: "/var/swap.1"
 * `core_ssl_private_key_enabled`
     * If "true" a SSL private key will be copied from a source to a destination with root only permissions applied
+    * This is a binary variable and **MUST** be set to either "true" or "false" (without quotes).
     * Default: "false"
 * `core_ssl_private_key_source_path`
-    * Path on the ansible host to the directory holding the SSL private key
+    * If enabled, the path on the Ansible host to the directory holding the SSL private key
     * This variable can be an absolute or relative path but **MUST NOT** contain a trailing slash
     * Default: "../../../certificates/domain"
 * `core_ssl_private_key_source_file`
-    * The file name and extension of the SSL private key within the directory specified by `core_ssl_private_key_source_path`
+    * If enabled, the file name and extension of the SSL private key within the directory specified by `core_ssl_private_key_source_path`
     * By convention this file **SHOULD** use a `.key` extension
     * Default: "certificate.key"
 * `core_ssl_private_key_destination_path`
-    * Path on the machine where the SSL private key will be stored
-    * By default this variable uses the Debian convention for SSL private keys and so this variable **SHOULD NOT** be changed.
+    * If enabled, the path on the machine where the SSL private key will be stored
+    * This variable **MUST** be a valid, writeable, path.
+    * By default this variable uses the Debian convention for SSL private keys, it **SHOULD NOT** be changed.
     * Default: "/etc/ssl/private"
 * `core_ssl_private_key_destination_file`
     * The file name and extension the SSL private key will be stored in within the directory specified by `core_ssl_private_key_destination_path`
+    * This variable **MUST** be a valid UNIX file name,
     * By convention this file **SHOULD** use a `.key` extension
     * Default: "certificate.key"
 
