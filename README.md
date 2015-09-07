@@ -6,6 +6,8 @@ Performs standard configuration of a node
 
 ## Overview
 
+TODO: Update.
+
 * Sets system hostname and FQDN via `ANXS.hostname` role.
 * Updates package lists (`apt-get update`).
 * Configures SSH to pre-trust some hosts by adding their host keys to `ssh_known_hosts`, this is controlled by `core_ssh_known_hosts`.
