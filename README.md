@@ -1,3 +1,6 @@
+
+TODO: Update
+
 # Core Public (`core-public`)
 
 [![Build Status](https://semaphoreci.com/api/v1/projects/371134e7-8b49-49c0-904f-aa05f0f0fa1e/533438/badge.svg)](https://semaphoreci.com/antarctica/ansible-core-public)
@@ -7,6 +10,8 @@
 Performs standard configuration of a node
 
 ## Overview
+
+TODO: Update
 
 * Sets system hostname and FQDN via `ANXS.hostname` role.
 * Updates package lists (`apt-get update`).
@@ -19,6 +24,8 @@ Performs standard configuration of a node
 * Optionally copies and secures access to an SSL private key if needed.
 
 ## Availability
+
+TODO: Update
 
 This role is designed for public use only.
 
@@ -40,18 +47,26 @@ This role uses manual and automated testing to ensure the features offered by th
 
 #### Other requirements
 
-* As of version **2.0.0** any OS this role is applied to **MUST** ensure passwordless sudo is enabled for the "sudo" group and SSH Agent Forwarding is preserved when using sudo.
-    * If using an of the following combinations of roles and OS images ensure you are using version **2.0.0** or higher, which implement these requirements:
-        * `bootstrap-vagrant` bootstrapping role with the [antarctica/trusty](https://atlas.hashicorp.com/antarctica/boxes/trusty) base box
-        * `bootstrap-esxi` bootstrapping role with the Ubuntu Trusty OVA as a template [1]
-        * `bootstrap-digitalocean` bootstrapping role with the relevant DigitalOcean snapshot as a template [2]
-* Public keys which should be added to the `authorized_keys` file of the app user, each key should be a separate file. Keys should be contained in  `core_app_user_authorized_keys_directory`.
+* As of version **1.0.0** any OS this role is applied to **MUST** ensure:
+
+* Passwordless sudo is enabled for the "sudo" group 
+* SSH Agent Forwarding is preserved when using sudo.
+
+The following combinations of roles and OS images implement these requirements:
+
+* `bootstrap-vagrant` bootstrapping role with the [antarctica/trusty](https://atlas.hashicorp.com/antarctica/boxes/trusty) base box
+* `bootstrap-esxi` bootstrapping role with the Ubuntu Trusty OVA as a template [1]
+* `bootstrap-digitalocean` bootstrapping role using the relevant DigitalOcean image [2]
+
+* Public keys for the `authorized_keys` file of the app user
+
+Each key should be a separate file contained in the path set by the `core_user_app_authorized_keys_directory` variable.
 
 [1] See the [BAS Packer Templates](https://stash.ceh.ac.uk/projects/BASPACK/repos/packer-templates) for more information.
 
-[2] See the `bootstrap-digitalocean` role for more information on which snapshot to use.
-
 #### Variables
+
+TODO: Update - these values are outdated.
 
 * `core_controller_user_username`
 	* The username of the controller user, used for management tasks, if enabled
