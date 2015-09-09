@@ -1,0 +1,26 @@
+---
+# Configure swap file
+
+- name: determine if swap file exists
+  stat: path="{{ core_swap_file_path }}"
+  changed_when: False
+  register: core_fact_swap_file_exists
+- name: assert swap file exists
+  assert:
+    that:
+      - "core_fact_swap_file_exists.stat.exists == true"
+- name: assert swap file has correct permissions
+  assert:
+    that:
+      - "core_fact_swap_file_exists.stat.pw_name == 'root'"
+      - "core_fact_swap_file_exists.stat.gr_name == 'root'"
+      - "core_fact_swap_file_exists.stat.mode == '0600'"
+
+- name: determine available swap volumes
+  command: swapon -s
+  changed_when: False
+  register: core_fact_swap_volumes_available
+- name: assert swap file is an available swap volume
+  assert:
+    that:
+      - "'{{ core_swap_file_path }}' in core_fact_swap_volumes_available.stdout"

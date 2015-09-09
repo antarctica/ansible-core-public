@@ -1,0 +1,31 @@
+---
+# Configure SSH
+
+# - name: ensure global SSH known hosts file exists
+#   file: path=/etc/ssh/ssh_known_hosts state=touch
+
+- name: determine if global SSH known hosts file exists
+  stat: path=/etc/ssh/ssh_known_hosts
+  changed_when: False
+  register: core_fact_global_ssh_known_hosts_exists
+- name: assert global SSH known hosts file exists
+  assert:
+    that:
+      - "core_fact_global_ssh_known_hosts_exists.stat.exists == true"
+
+- name: determine keys for hosts that should be in the global ssh known hosts file
+  shell: ssh-keyscan -p {{ item.port }} {{ item.host }}
+  with_items: core_ssh_known_hosts
+  changed_when: False
+  register: core_fact_keys_for_global_ssh_known_hosts
+- name: read global ssh hosts file to compare against
+  command: cat /etc/ssh/ssh_known_hosts
+  changed_when: False
+  register: core_fact_keys_in_global_ssh_known_hosts
+- name: assert each key for hosts that should be in the global ssh known hosts file is present
+  assert:
+    that:
+      - "'{{ item.stdout }}' in core_fact_keys_in_global_ssh_known_hosts.stdout"
+  with_items: "{{core_fact_keys_for_global_ssh_known_hosts.results | default([])}}"
+
+# TODO: In a test-* file check host key is actually pre-trusted - i.e. there's no 'do you accept this host-key' message

@@ -1,0 +1,7 @@
+---
+# These variables override those defined by roles and groups
+
+# Core
+core_enable_feature_user_create_app: false
+
+core_enable_feature_user_controller_create_bash_aliases: false

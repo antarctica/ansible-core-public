@@ -1,0 +1,18 @@
+---
+# Configure controller user
+
+- name: determine which groups the controller user belongs to
+  command: "groups {{ core_user_controller_username }}"
+  changed_when: False
+  register: core_fact_controller_user_group_memberships
+  when: core_enable_feature_user_controller_add_to_adm_group == true
+- name: assert controller user is a member of the adm group
+  assert:
+    that:
+      - "'adm' in core_fact_controller_user_group_memberships.stdout"
+  when: core_enable_feature_user_controller_add_to_adm_group == true
+
+- include: users-common.yml
+  vars:
+    username: "{{ core_user_controller_username }}"
+    create_bash_aliases: "{{ core_enable_feature_user_controller_create_bash_aliases }}"

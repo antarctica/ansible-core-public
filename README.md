@@ -1,5 +1,7 @@
 # Core Public (`core-public`)
 
+[![Build Status](https://semaphoreci.com/api/v1/projects/371134e7-8b49-49c0-904f-aa05f0f0fa1e/533438/badge.svg)](https://semaphoreci.com/antarctica/ansible-core-public)
+
 **Part of the BAS Ansible Role Collection (BARC)**
 
 Performs standard configuration of a node
@@ -21,6 +23,12 @@ Performs standard configuration of a node
 This role is designed for public use only.
 
 Note: Internal users should use the `core` role rather than this one.
+
+## Quality Assurance
+
+This role uses manual and automated testing to ensure the features offered by this role work as advertised. See the `tests/README.md` file for more information.
+
+[![Build Status](https://semaphoreci.com/api/v1/projects/371134e7-8b49-49c0-904f-aa05f0f0fa1e/533438/badge.svg)](https://semaphoreci.com/antarctica/ansible-core-public)
 
 ## Usage
 

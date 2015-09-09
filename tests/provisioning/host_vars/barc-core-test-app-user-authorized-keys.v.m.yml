@@ -1,0 +1,7 @@
+---
+# These variables override those defined by roles and groups
+
+# Core
+core_enable_feature_user_app_create_bash_aliases: false
+
+core_user_app_authorized_keys_directory: ../tests/provisioning/public_keys

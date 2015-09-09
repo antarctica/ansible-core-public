@@ -1,0 +1,20 @@
+---
+# Common setup for all users
+
+- name: determine if bash_aliases file exists for user
+  stat: path="/home/{{ username }}/.bash_aliases"
+  register: core_fact_user_bash_aliases_exist
+  when: create_bash_aliases == true or create_bash_aliases == "True"
+- name: assert bash_aliases file exists for user
+  assert:
+    that:
+      - "core_fact_user_bash_aliases_exist.stat.exists == true"
+  when: create_bash_aliases == true or create_bash_aliases == "True"
+
+- name: determine if rnd file exists for user
+  stat: path="/home/{{ username }}/.rnd"
+  register: core_fact_user_rnd_exist
+- name: assert rnd file exists for user
+  assert:
+    that:
+      - "core_fact_user_rnd_exist.stat.exists == true"

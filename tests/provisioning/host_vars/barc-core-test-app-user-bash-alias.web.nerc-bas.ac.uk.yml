@@ -1,0 +1,5 @@
+---
+# These variables override those defined by roles and groups
+
+# Core
+core_enable_feature_user_app_create_authorized_keys_file: false

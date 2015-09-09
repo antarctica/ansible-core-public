@@ -1,0 +1,11 @@
+---
+# Update meta-data for system packages
+
+- name: determine when the package cache where last updated
+  stat: path=/var/cache/apt
+  changed_when: False
+  register: core_fact_apt_cache_stat
+- name: assert the package cache has been updated within the last 3 minutes
+  assert:
+    that:
+      - "ansible_date_time.epoch|float - core_fact_apt_cache_stat.stat.mtime < 60 * 60 * 3"  # i.e. was file created within the last 3 minutes from the current time

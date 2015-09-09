@@ -1,0 +1,38 @@
+# This is an Ansible inventory file. It inherits from /etc/ansible/hosts if it exists
+# It organises hosts/nodes into logical groups which can then be used in playbooks
+
+# This inventory is for the 'testing-local' environment
+
+# It is best practice to group hosts by location and purpose like so:
+
+[vagrant-test]
+barc-core-test-bare.v.m
+barc-core-test-swap.v.m
+barc-core-test-known-hosts.v.m
+barc-core-test-controller-user-bare.v.m
+barc-core-test-controller-user-adm-group.v.m
+barc-core-test-controller-user-bash-alias.v.m
+barc-core-test-app-user-bare.v.m
+barc-core-test-app-user-authorized-keys.v.m
+barc-core-test-app-user-bash-alias.v.m
+
+[vagrant:children]
+vagrant-test
+
+[all-servers:children]
+vagrant
+
+
+[barc-core-test-nodes-local]
+barc-core-test-bare.v.m
+barc-core-test-swap.v.m
+barc-core-test-known-hosts.v.m
+barc-core-test-controller-user-bare.v.m
+barc-core-test-controller-user-adm-group.v.m
+barc-core-test-controller-user-bash-alias.v.m
+barc-core-test-app-user-bare.v.m
+barc-core-test-app-user-authorized-keys.v.m
+barc-core-test-app-user-bash-alias.v.m
+
+[barc-core-test-nodes:children]
+barc-core-test-nodes-local

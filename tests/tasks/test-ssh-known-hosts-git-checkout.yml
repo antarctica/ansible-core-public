@@ -1,0 +1,9 @@
+---
+# Tests that a git repository can be cloned from a host that has been added to the system known hosts file
+
+- name: install git
+  apt: update_cache=yes cache_valid_time=3600 pkg=git state=present # won't update if done under an hour ago - required to test git checkout
+
+- name: checkout test git repository
+  git: repo="{{ test_git_repo }}" version=master clone=no update=no
+  changed_when: False

@@ -1,0 +1,17 @@
+---
+# These variables override those defined by roles and groups
+
+# Core
+core_enable_feature_ssh_manage_known_hosts: true
+
+core_ssh_known_hosts:
+- port: 22
+  host: "github.com"
+- port: 22
+  host: "192.30.252.129"
+
+core_enable_feature_user_create_controller: false
+core_enable_feature_user_create_app: false
+
+# Test
+test_git_repo: git@github.com:githubtraining/hellogitworld.git

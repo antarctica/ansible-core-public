@@ -1,0 +1,35 @@
+---
+# Tests a node is correctly configured in terms of package updates, users and base system services
+
+# Configuration checks
+# These checks mirror individual tasks to ensure they execute correctly (i.e. that they install the right package or create the correct config file)
+
+# Core configuration
+
+# System configuration
+
+- include: update-packages.yml
+
+- include: swap-file.yml
+  when: core_enable_feature_create_swap_file == true
+
+# Services configuration
+
+- include: ssh-known-hosts.yml
+  when: core_enable_feature_ssh_manage_known_hosts == true
+
+# Users configuration
+
+- include: controller-user.yml
+  when: core_enable_feature_user_create_controller == true
+
+- include: app-user.yml
+  when: core_enable_feature_user_create_app == true
+
+
+# Functionality checks
+# These checks need to run after the package or service has been configured to ensure it is working correctly,
+# using an configuration that may have been set by this role.
+
+- include: test-ssh-known-hosts-git-checkout.yml
+  when: core_enable_feature_ssh_manage_known_hosts == true

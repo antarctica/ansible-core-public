@@ -1,0 +1,38 @@
+# This is an Ansible inventory file. It inherits from /etc/ansible/hosts if it exists
+# It organises hosts/nodes into logical groups which can then be used in playbooks
+
+# This inventory is for the 'testing-remote' environment
+
+# It is best practice to group hosts by location and purpose like so:
+
+[digitalocean-test]
+barc-core-test-bare.web.nerc-bas.ac.uk
+barc-core-test-swap.web.nerc-bas.ac.uk
+barc-core-test-known-hosts.web.nerc-bas.ac.uk
+barc-core-test-controller-user-bare.web.nerc-bas.ac.uk
+barc-core-test-controller-user-adm-group.web.nerc-bas.ac.uk
+barc-core-test-controller-user-bash-alias.web.nerc-bas.ac.uk
+barc-core-test-app-user-bare.web.nerc-bas.ac.uk
+barc-core-test-app-user-authorized-keys.web.nerc-bas.ac.uk
+barc-core-test-app-user-bash-alias.web.nerc-bas.ac.uk
+
+[digitalocean:children]
+digitalocean-test
+
+[all-servers:children]
+digitalocean
+
+
+[barc-core-test-nodes-remote]
+barc-core-test-bare.web.nerc-bas.ac.uk
+barc-core-test-swap.web.nerc-bas.ac.uk
+barc-core-test-known-hosts.web.nerc-bas.ac.uk
+barc-core-test-controller-user-bare.web.nerc-bas.ac.uk
+barc-core-test-controller-user-adm-group.web.nerc-bas.ac.uk
+barc-core-test-controller-user-bash-alias.web.nerc-bas.ac.uk
+barc-core-test-app-user-bare.web.nerc-bas.ac.uk
+barc-core-test-app-user-authorized-keys.web.nerc-bas.ac.uk
+barc-core-test-app-user-bash-alias.web.nerc-bas.ac.uk
+
+[barc-core-test-nodes:children]
+barc-core-test-nodes-remote

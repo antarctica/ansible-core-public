@@ -1,0 +1,39 @@
+---
+# Create an application user and grant access to authorised users
+
+- name: determine if app user exists
+  command: "id -u {{ core_user_app_username }}"
+  changed_when: False
+  register: core_user_app_username_exists
+- name: assert app user exists
+  assert:
+    that:
+      "core_user_app_username_exists.rc == 0"
+
+- name: determine if authorised keys file exists for app user
+  stat: path="/home/{{ core_user_app_username }}/.ssh/authorized_keys"
+  changed_when: False
+  register: core_fact_app_user_authorized_keys_file_exists
+  when: core_enable_feature_user_app_create_authorized_keys_file == true
+- name: assert authorised keys file exists for app user
+  assert:
+    that:
+      - "core_fact_app_user_authorized_keys_file_exists.stat.exists == true"
+  when: core_enable_feature_user_app_create_authorized_keys_file == true
+- name: read app user authorised keys file
+  command: "cat /home/{{ core_user_app_username }}/.ssh/authorized_keys"
+  changed_when: False
+  register: core_fact_app_user_authorized_keys_file_contents
+  when: core_enable_feature_user_app_create_authorized_keys_file == true
+- name: assert authorised keys exist in app user authorised keys file
+  assert:
+    that:
+      - "'{{ lookup('file',item) }}' in core_fact_app_user_authorized_keys_file_contents.stdout"
+  with_fileglob:
+  - "{{ core_user_app_authorized_keys_directory }}/*"
+  when: core_enable_feature_user_app_create_authorized_keys_file == true
+
+- include: users-common.yml
+  vars:
+    username: "{{ core_user_app_username }}"
+    create_bash_aliases: "{{ core_enable_feature_user_app_create_bash_aliases }}"
