@@ -2,22 +2,10 @@
 # Configure controller user
 
 - name: ensure controller user is a member of the adm group
-  user: name="{{ core_controller_user_username }}" groups="adm" append="yes"
-  when: core_controller_user_add_to_adm_group == true
+  user: name="{{ core_user_controller_username }}" groups="adm" append="yes"
+  when: core_enable_feature_user_controller_add_to_adm_group == true
 
-- name: determine if bash_aliases file exists for controller user
-  stat: path="/home/{{ core_controller_user_username }}/.bash_aliases"
-  register: core_fact_controller_user_bash_aliases_exist
-  when: core_controller_user_create_bash_aliases == true
-
-- name: ensure bash_aliases file exists for controller user
-  file: path="/home/{{ core_controller_user_username }}/.bash_aliases" group="{{ core_controller_user_username }}" owner="{{ core_controller_user_username }}" state=touch
-  when: core_controller_user_create_bash_aliases == true and core_fact_controller_user_bash_aliases_exist.stat.exists == false
-
-- name: determine if rnd file exists for controller user
-  stat: path="/home/{{ core_controller_user_username }}/.rnd"
-  register: core_fact_controller_user_rnd_exist
-
-- name: ensure rnd file exists for controller user
-  file: path="/home/{{ core_controller_user_username }}/.rnd" group="{{ core_controller_user_username }}" owner="{{ core_controller_user_username }}" state=touch
-  when: core_fact_controller_user_rnd_exist.stat.exists == false
+- include: users-common.yml
+  vars:
+    username: "{{ core_user_controller_username }}"
+    create_bash_aliases: "{{ core_enable_feature_user_controller_create_bash_aliases }}"

@@ -6,6 +6,9 @@
 * Removed BREAKING! - Support for uploading SSL private keys (use updated `apache` and `nginx` roles instead)
 * Added - testing support for automated testing using Semaphore
 * Added - testing support for manual testing, using local and remote environments
+* Changed - Refactoring tasks to be clearer and better structured
+* Changed BREAKING! - Refactoring almost all variables
+
 ## 1.0.0 - May 2015
 
 * Removes support for modifying the sudoers file, ensure you are using a compatible bootstrap role and base system

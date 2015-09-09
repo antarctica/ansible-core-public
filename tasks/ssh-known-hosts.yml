@@ -1,0 +1,20 @@
+---
+# Configure SSH
+
+- name: determine if global SSH known hosts file exists
+  stat: path=/etc/ssh/ssh_known_hosts
+  changed_when: False
+  register: core_fact_global_ssh_known_hosts_exists
+- name: ensure global SSH known hosts file exists
+  file: path=/etc/ssh/ssh_known_hosts state=touch
+  when: core_fact_global_ssh_known_hosts_exists.stat.exists == false
+
+- name: read global ssh hosts file to compare against
+  command: cat /etc/ssh/ssh_known_hosts
+  changed_when: False
+  register: core_fact_global_ssh_known_hosts_contents
+
+- name: add hosts to global SSH known hosts file
+  shell: ssh-keyscan -p {{ item.port }} {{ item.host }} >> /etc/ssh/ssh_known_hosts
+  when: "'{{ item.host }}' not in core_fact_global_ssh_known_hosts_contents.stdout"  # Needed to prevent host being appended on each play (i.e. duplicate)
+  with_items: core_ssh_known_hosts

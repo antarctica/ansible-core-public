@@ -1,18 +1,22 @@
 ---
 # Configure VM for use
 
-- name: update package lists
-  apt: update_cache=yes
+# System configuration
 
-- include: ssh-config.yml
+- include: update-packages.yml
 
 - include: swap-file.yml
-  when: core_swap_file_enabled == true
+  when: core_enable_feature_create_swap_file == true
 
-- include: ssl-private-key.yml
-  when: core_ssl_private_key_enabled == true
+# Services configuration
+
+- include: ssh-known-hosts.yml
+  when: core_enable_feature_ssh_manage_known_hosts == true
+
+# Users configuration
 
 - include: controller-user.yml
-  when: core_controller_user_enabled == true
+  when: core_enable_feature_user_create_controller == true
+
 - include: app-user.yml
-  when: core_app_user_enabled == true
+  when: core_enable_feature_user_create_app == true

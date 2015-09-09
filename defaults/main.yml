@@ -1,25 +1,29 @@
 ---
 # Default variables - inventory or playbook overrides will be respected
 
-core_controller_user_username: controller
-core_controller_user_enabled: true
-core_controller_user_create_bash_aliases: true
-core_controller_user_add_to_adm_group: true
+# System settings
+core_enable_feature_create_swap_file: false
 
-core_app_user_username: app
-core_app_user_enabled: true
-core_app_user_create_bash_aliases: true
-
-core_app_user_authorized_keys_directory: ../../../public_keys
-
-core_ssh_known_hosts: []
-
-core_swap_file_enabled: false
 core_swap_file_size: 1024
 core_swap_file_path: /var/swap.1
 
-core_ssl_private_key_enabled: false
-core_ssl_private_key_source_path: ../../../certificates/domain
-core_ssl_private_key_source_file: certificate.key
-core_ssl_private_key_destination_path: /etc/ssl/private
-core_ssl_private_key_destination_file: certificate.key
+# Services settings
+core_enable_feature_ssh_manage_known_hosts: false
+
+core_ssh_known_hosts: []
+
+# User settings
+core_enable_feature_user_create_controller: true
+core_enable_feature_user_create_app: true
+core_enable_feature_user_create_bash_aliases: true
+
+core_enable_feature_user_controller_add_to_adm_group: true
+core_enable_feature_user_controller_create_bash_aliases: "{{ core_enable_feature_user_create_bash_aliases }}"
+
+core_user_controller_username: controller
+
+core_enable_feature_user_app_create_authorized_keys_file: true
+core_enable_feature_user_app_create_bash_aliases: "{{ core_enable_feature_user_create_bash_aliases }}"
+
+core_user_app_username: app
+core_user_app_authorized_keys_directory: ../../../public_keys

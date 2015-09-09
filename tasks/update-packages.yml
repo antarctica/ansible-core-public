@@ -1,0 +1,5 @@
+---
+# Update meta-data for system packages
+
+- name: update package lists
+  apt: update_cache=yes

@@ -3,20 +3,20 @@
 
 - name: check if swap file already exists
   stat: path="{{ core_swap_file_path }}"
-  register: swap_file_stat
+  register: core_fact_swap_file_stat
 
 - name: create storage container to use as swap file
   raw: "/bin/dd if=/dev/zero of={{ core_swap_file_path }} bs=1M count={{ core_swap_file_size }}"
-  when: swap_file_stat.stat.exists == false
+  when: core_fact_swap_file_stat.stat.exists == false
 
 - name: set permissions on storage container
   file: path="{{ core_swap_file_path }}" owner=root group=root mode=0600
-  when: swap_file_stat.stat.exists == false
+  when: core_fact_swap_file_stat.stat.exists == false
 
 - name: enable container to be used for swap
   raw: "/sbin/mkswap {{ core_swap_file_path }}"
-  when: swap_file_stat.stat.exists == false
+  when: core_fact_swap_file_stat.stat.exists == false
 
 - name: enable swap file
   raw: "/sbin/swapon {{ core_swap_file_path }}"
-  when: swap_file_stat.stat.exists == false
+  when: core_fact_swap_file_stat.stat.exists == false
