@@ -3,6 +3,7 @@
 ## Unreleased
 
 * Removed BREAKING! - 'var' level variables for `apache` and `nginx` roles, generic variables with defaults are now used in both these roles
+* Removed BREAKING! - Support for uploading SSL private keys (use updated `apache` and `nginx` roles instead)
 * Added - testing support for automated testing using Semaphore
 * Added - testing support for manual testing, using local and remote environments
 ## 1.0.0 - May 2015
