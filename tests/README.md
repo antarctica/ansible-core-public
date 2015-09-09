@@ -37,7 +37,7 @@ The following role configurations are tested:
 7. A node based on *configuration 1* with minimal configuration of an app user, which consists of verifying the user exists and a `.rnd` file is created, only
 8. A node based on *configuration 7* with verification one or more public keys are added to an `authorized_keys` file for the app user
 9. A node based on *configuration 7* with verification a `.bash_aliases` file is created for the app user
-10. A combination of configurations *2, 3, 5, 6, 8, 9* [5]
+10. A combination of configurations *3, 5, 6, 8, 9* [5][6][7]
 
 [1] This may because the role is used by lots of other roles (such as the `core` role) or simply deemed important in its own right.
 
@@ -47,7 +47,11 @@ The following role configurations are tested:
 
 [4] As creating the user is not within the scope of this role, this is not tested in this role either. See the role(s) responsible for creating the user for associated tests.
 
-[5] This configuration is also used in automated tests, as discussed in the *automated tests* section.
+[5] *Configuration 2* is not tested within the automated test environment as it does not support creating swap files.
+
+[6] *Configuration 3* is only partially tested within the automated test environment due to its pre-configuration of SSH connections to GitHub making this check meaningless.
+
+[7] This configuration is also used in automated tests, as discussed in the *automated tests* section.
 
 ## Automated tests
 

@@ -27,3 +27,6 @@ core_enable_feature_user_app_create_bash_aliases: "{{ core_enable_feature_user_c
 
 core_user_app_username: app
 core_user_app_authorized_keys_directory: ../../../public_keys
+
+# Test
+core_enable_feature_test_git_checkout: true

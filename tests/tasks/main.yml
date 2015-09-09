@@ -32,4 +32,4 @@
 # using an configuration that may have been set by this role.
 
 - include: test-ssh-known-hosts-git-checkout.yml
-  when: core_enable_feature_ssh_manage_known_hosts == true
+  when: core_enable_feature_ssh_manage_known_hosts == true and core_enable_feature_test_git_checkout == true
